@@ -49,21 +49,20 @@ func (s *PulsarSubscriber) Start() error {
 		Type:             pulsar.Shared,
 	})
 	if err != nil {
+		logger.Error(context.Background(), "failed to Subscribe from pulsar: %s", err)
 		return fmt.Errorf("failed to Subscribe from pulsar: %s", err)
-	} else {
-		s.consumer = consumer
-		go func() {
-			if err := s.consumeMessages(); err != nil {
-				logger.Error(context.Background(), "consume logs loop occurs an error", err)
-			}
-		}()
 	}
+	s.consumer = consumer
+	go func() {
+		if err := s.consumeMessages(); err != nil {
+			logger.Error(context.Background(), "consume logs loop occurs an error", err)
+		}
+	}()
 	return nil
 }
 
 func (s *PulsarSubscriber) Stop() {
 	close(s.channel)
-	return
 }
 
 func (s *PulsarSubscriber) SubscribeChan() <-chan *protocol.LogGroup {
@@ -87,7 +86,7 @@ func (s *PulsarSubscriber) consumeMessages() error {
 
 func (s *PulsarSubscriber) pulsarMsgToLogGroup(msg pulsar.Message) *protocol.LogGroup {
 	fields := make(map[string]string)
-	fields[string(msg.Key())] = string(msg.Payload())
+	fields[msg.Key()] = string(msg.Payload())
 	log, _ := util.CreateLog(time.Now(), nil, nil, fields)
 	err := s.consumer.Ack(msg)
 	if err != nil {
