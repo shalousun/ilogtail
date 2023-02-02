@@ -23,6 +23,7 @@ type PulsarSubscriber struct {
 	client   pulsar.Client
 	consumer pulsar.Consumer
 	channel  chan *protocol.LogGroup
+	stopCh   chan struct{}
 }
 
 func (s *PulsarSubscriber) Name() string {
@@ -34,6 +35,7 @@ func (s *PulsarSubscriber) Description() string {
 }
 
 func (s *PulsarSubscriber) Start() error {
+	time.Sleep(time.Second * 120)
 	clientOpts := pulsar.ClientOptions{
 		URL: s.URL,
 	}
@@ -53,16 +55,12 @@ func (s *PulsarSubscriber) Start() error {
 		return fmt.Errorf("failed to Subscribe from pulsar: %s", err)
 	}
 	s.consumer = consumer
-	go func() {
-		if err := s.consumeMessages(); err != nil {
-			logger.Error(context.Background(), "consume logs loop occurs an error", err)
-		}
-	}()
+	go s.consumeMessages()
 	return nil
 }
 
 func (s *PulsarSubscriber) Stop() {
-	close(s.channel)
+	close(s.stopCh)
 }
 
 func (s *PulsarSubscriber) SubscribeChan() <-chan *protocol.LogGroup {
@@ -73,14 +71,21 @@ func (s *PulsarSubscriber) FlusherConfig() string {
 	return ""
 }
 
-func (s *PulsarSubscriber) consumeMessages() error {
+func (s *PulsarSubscriber) consumeMessages() {
 	for {
-		msg, err := s.consumer.Receive(context.Background())
-		if err != nil {
-			return fmt.Errorf("failed to revevive message from pulsar: %s", err)
+		select {
+		case <-s.stopCh:
+			close(s.channel)
+			return
+		case <-time.After(time.Duration(1000) * time.Millisecond):
+			msg, err := s.consumer.Receive(context.Background())
+			if err != nil {
+				logger.Warning(context.Background(), "failed to revevive message from pulsar", "err", err)
+				continue
+			}
+			logGroup := s.pulsarMsgToLogGroup(msg)
+			s.channel <- logGroup
 		}
-		logGroup := s.pulsarMsgToLogGroup(msg)
-		s.channel <- logGroup
 	}
 }
 
@@ -112,6 +117,7 @@ func init() {
 			s.Topic = "test"
 		}
 		s.channel = make(chan *protocol.LogGroup, 10)
+		s.stopCh = make(chan struct{})
 		return s, nil
 	})
 	doc.Register("subscriber", pulsarName, new(PulsarSubscriber))
