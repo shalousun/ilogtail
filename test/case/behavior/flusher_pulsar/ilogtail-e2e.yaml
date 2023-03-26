@@ -14,7 +14,7 @@
 
 boot:
   category: docker-compose
-testing_interval: 10s
+testing_interval: 15s
 ilogtail:
   config:
     - name: flusher-pulsar-case
