@@ -3,6 +3,7 @@ module github.com/alibaba/ilogtail/pkg
 go 1.19
 
 require (
+	github.com/bytedance/sonic v1.11.4
 	github.com/cespare/xxhash v1.1.0
 	github.com/cespare/xxhash/v2 v2.2.0
 	github.com/cihub/seelog v0.0.0-20170130134532-f561c5e57575
@@ -15,6 +16,7 @@ require (
 	github.com/influxdata/influxdb v1.11.0
 	github.com/influxdata/line-protocol/v2 v2.2.1
 	github.com/influxdata/telegraf v1.20.0
+	github.com/json-iterator/go v1.1.12
 	github.com/mailru/easyjson v0.7.7
 	github.com/narqo/go-dogstatsd-parser v0.2.0
 	github.com/pierrec/lz4 v2.6.1+incompatible
@@ -42,6 +44,8 @@ require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/blang/semver v3.5.1+incompatible // indirect
 	github.com/cilium/ebpf v0.7.0 // indirect
+	github.com/cloudwego/base64x v0.1.0 // indirect
+	github.com/cloudwego/iasm v0.0.9 // indirect
 	github.com/containerd/cgroups v1.0.4 // indirect
 	github.com/containerd/continuity v0.2.2 // indirect
 	github.com/containerd/fifo v1.0.0 // indirect
@@ -77,9 +81,9 @@ require (
 	github.com/gopherjs/gopherjs v0.0.0-20181017120253-0766667cb4d1 // indirect
 	github.com/intel/goresctrl v0.2.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
-	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/jtolds/gls v4.20.0+incompatible // indirect
 	github.com/klauspost/compress v1.15.15 // indirect
+	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
 	github.com/miekg/pkcs11 v1.1.1 // indirect
 	github.com/moby/locker v1.0.1 // indirect
@@ -106,6 +110,7 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/stefanberger/go-pkcs11uri v0.0.0-20201008174630-78d3cae3a980 // indirect
 	github.com/tchap/go-patricia v2.3.0+incompatible // indirect
+	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/vishvananda/netlink v1.1.1-0.20210330154013-f5de75959ad5 // indirect
 	github.com/vishvananda/netns v0.0.0-20210104183010-2eb08e3e575f // indirect
@@ -114,6 +119,7 @@ require (
 	go.opencensus.io v0.24.0 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.9.0 // indirect
+	golang.org/x/arch v0.0.0-20210923205945-b76863e36670 // indirect
 	golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e // indirect
 	golang.org/x/net v0.8.0 // indirect
 	golang.org/x/oauth2 v0.5.0 // indirect

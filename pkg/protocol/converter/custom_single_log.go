@@ -19,6 +19,8 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/bytedance/sonic"
+
 	"github.com/alibaba/ilogtail/pkg/protocol"
 )
 
@@ -71,7 +73,7 @@ func (c *Converter) ConvertToSingleProtocolStream(logGroup *protocol.LogGroup, t
 	for i, log := range convertedLogs {
 		switch c.Encoding {
 		case EncodingJSON:
-			b, err := marshalWithoutHTMLEscaped(log)
+			b, err := sonic.Marshal(log)
 			if err != nil {
 				return nil, nil, fmt.Errorf("unable to marshal log: %v", log)
 			}
