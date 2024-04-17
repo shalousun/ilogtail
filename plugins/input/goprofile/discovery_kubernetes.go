@@ -24,9 +24,9 @@ import (
 	"github.com/alibaba/ilogtail/pkg/helper"
 	"github.com/alibaba/ilogtail/pkg/logger"
 
-	"github.com/prometheus/common/model"
-	"github.com/prometheus/prometheus/discovery"
-	"github.com/prometheus/prometheus/discovery/targetgroup"
+	"github.com/pyroscope-io/pyroscope/pkg/scrape/discovery"
+	"github.com/pyroscope-io/pyroscope/pkg/scrape/discovery/targetgroup"
+	"github.com/pyroscope-io/pyroscope/pkg/scrape/model"
 )
 
 type KubernetesConfig struct {
@@ -134,11 +134,11 @@ func (k *KubernetesConfig) convertContainers2Group(containers map[string]*helper
 		var g targetgroup.Group
 		addr := net.JoinHostPort(detail.ContainerIP, val)
 		target := model.LabelSet{
-			model.AddressLabel:    model.LabelValue(addr),
-			model.MetricNameLabel: model.LabelValue(helper.ExtractPodWorkload(detail.K8SInfo.Pod)),
-			"namespace":           model.LabelValue(detail.K8SInfo.Namespace),
-			"pod":                 model.LabelValue(detail.K8SInfo.Pod),
-			"container":           model.LabelValue(detail.K8SInfo.ContainerName),
+			model.AddressLabel: model.LabelValue(addr),
+			model.AppNameLabel: model.LabelValue(helper.ExtractPodWorkload(detail.K8SInfo.Pod)),
+			"namespace":        model.LabelValue(detail.K8SInfo.Namespace),
+			"pod":              model.LabelValue(detail.K8SInfo.Pod),
+			"container":        model.LabelValue(detail.K8SInfo.ContainerName),
 		}
 		tags := make(map[string]string)
 		detail.GetCustomExternalTags(tags, k.ExternalEnvTag, k.ExternalK8sLabelTag)

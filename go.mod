@@ -278,7 +278,16 @@ require (
 	sigs.k8s.io/gateway-api v0.6.2 // indirect
 )
 
-require github.com/frankban/quicktest v1.14.5 // indirect
+require github.com/bytedance/sonic v1.11.4
+
+require (
+	github.com/cloudwego/base64x v0.1.0 // indirect
+	github.com/cloudwego/iasm v0.0.9 // indirect
+	github.com/frankban/quicktest v1.14.5 // indirect
+	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
+	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
+	golang.org/x/arch v0.0.0-20210923205945-b76863e36670 // indirect
+)
 
 replace (
 	github.com/VictoriaMetrics/VictoriaMetrics => github.com/iLogtail/VictoriaMetrics v1.83.4-ilogtail
