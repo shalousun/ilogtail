@@ -18,12 +18,13 @@
 package logmeta
 
 import (
-	"encoding/json"
 	"fmt"
 	"os"
 	"regexp"
 	"strings"
 	"time"
+
+	"github.com/bytedance/sonic"
 
 	"github.com/alibaba/ilogtail/pkg/helper"
 	"github.com/alibaba/ilogtail/pkg/logger"
@@ -201,7 +202,7 @@ func (idf *InputDockerFile) addMappingToLogtail(info *helper.DockerInfoDetail, d
 		cmd.Tags = append(cmd.Tags, key)
 		cmd.Tags = append(cmd.Tags, val)
 	}
-	cmdBuf, _ := json.Marshal(&cmd)
+	cmdBuf, _ := sonic.Marshal(&cmd)
 	configName := idf.context.GetConfigName()
 	logger.Info(idf.context.GetRuntimeContext(), "addMappingToLogtail cmd", cmd)
 	if allCmd != nil {
@@ -217,7 +218,7 @@ func (idf *InputDockerFile) deleteMappingFromLogtail(id string) {
 	var cmd DockerFileUpdateCmd
 	cmd.ID = id
 	logger.Info(idf.context.GetRuntimeContext(), "deleteMappingFromLogtail cmd", cmd)
-	cmdBuf, _ := json.Marshal(&cmd)
+	cmdBuf, _ := sonic.Marshal(&cmd)
 	configName := idf.context.GetConfigName()
 	if err := logtail.ExecuteCMD(configName, PluginDockerDeleteFile, cmdBuf); err != nil {
 		logger.Error(idf.context.GetRuntimeContext(), "DOCKER_FILE_MAPPING_ALARM", "cmdType", PluginDockerDeleteFile, "cmd", cmdBuf, "error", err)
@@ -228,7 +229,7 @@ func (idf *InputDockerFile) notifyStopToLogtail(id string) {
 	var cmd DockerFileUpdateCmd
 	cmd.ID = id
 	logger.Info(idf.context.GetRuntimeContext(), "notifyStopToLogtail cmd", cmd)
-	cmdBuf, _ := json.Marshal(&cmd)
+	cmdBuf, _ := sonic.Marshal(&cmd)
 	configName := idf.context.GetConfigName()
 	if err := logtail.ExecuteCMD(configName, PluginDockerStopFile, cmdBuf); err != nil {
 		logger.Error(idf.context.GetRuntimeContext(), "DOCKER_FILE_MAPPING_ALARM", "cmdType", PluginDockerStopFile, "cmd", cmdBuf, "error", err)
@@ -237,7 +238,7 @@ func (idf *InputDockerFile) notifyStopToLogtail(id string) {
 
 func (idf *InputDockerFile) updateAll(allCmd *DockerFileUpdateCmdAll) {
 	logger.Info(idf.context.GetRuntimeContext(), "update all", len(allCmd.AllCmd))
-	cmdBuf, _ := json.Marshal(allCmd)
+	cmdBuf, _ := sonic.Marshal(allCmd)
 	configName := idf.context.GetConfigName()
 	if err := logtail.ExecuteCMD(configName, PluginDockerUpdateFileAll, cmdBuf); err != nil {
 		logger.Error(idf.context.GetRuntimeContext(), "DOCKER_FILE_MAPPING_ALARM", "cmdType", PluginDockerUpdateFileAll, "cmd", cmdBuf, "error", err)
