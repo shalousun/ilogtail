@@ -25,10 +25,11 @@ import (
 )
 
 const (
-	protocolKeyTime    = "time"
-	protocolKeyContent = "contents"
-	protocolKeyTag     = "tags"
-	numProtocolKeys    = 3
+	protocolKeyTime      = "time"
+	protocolKeyTimestamp = "timestamp"
+	protocolKeyContent   = "contents"
+	protocolKeyTag       = "tags"
+	numProtocolKeys      = 3
 )
 
 func (c *Converter) ConvertToSingleProtocolLogs(logGroup *protocol.LogGroup, targetFields []string) ([]map[string]interface{}, []map[string]string, error) {
@@ -43,6 +44,7 @@ func (c *Converter) ConvertToSingleProtocolLogs(logGroup *protocol.LogGroup, tar
 		desiredValues[i] = desiredValue
 
 		customSingleLog := make(map[string]interface{}, numProtocolKeys)
+		customSingleLog[protocolKeyTimestamp] = log.TimeNs
 		if newKey, ok := c.ProtocolKeyRenameMap[protocolKeyTime]; ok {
 			customSingleLog[newKey] = log.Time
 		} else {

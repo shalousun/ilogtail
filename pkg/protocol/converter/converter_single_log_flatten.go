@@ -17,6 +17,8 @@ package protocol
 import (
 	"fmt"
 
+	"github.com/bytedance/sonic"
+
 	"github.com/alibaba/ilogtail/pkg/protocol"
 )
 
@@ -53,6 +55,7 @@ func (c *Converter) ConvertToSingleProtocolLogsFlatten(logGroup *protocol.LogGro
 		} else {
 			customSingleLog[protocolKeyTime] = log.Time
 		}
+		customSingleLog[protocolKeyTimestamp] = log.TimeNs
 
 		convertedLogs[i] = customSingleLog
 	}
@@ -68,7 +71,7 @@ func (c *Converter) ConvertToSingleProtocolStreamFlatten(logGroup *protocol.LogG
 	for i, log := range convertedLogs {
 		switch c.Encoding {
 		case EncodingJSON:
-			b, err := marshalWithoutHTMLEscaped(log)
+			b, err := sonic.Marshal(log)
 			if err != nil {
 				return nil, nil, fmt.Errorf("unable to marshal log: %v", log)
 			}
