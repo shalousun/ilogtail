@@ -18,8 +18,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"github.com/bytedance/sonic"
+	"go.opentelemetry.io/collector/pdata/pcommon"
 
 	"github.com/alibaba/ilogtail/pkg/protocol"
 )
@@ -44,7 +46,7 @@ func (c *Converter) ConvertToSingleProtocolLogs(logGroup *protocol.LogGroup, tar
 		desiredValues[i] = desiredValue
 
 		customSingleLog := make(map[string]interface{}, numProtocolKeys)
-		customSingleLog[protocolKeyTimestamp] = log.TimeNs
+		customSingleLog[protocolKeyTimestamp] = pcommon.Timestamp(uint64(log.Time)*uint64(time.Second)) + pcommon.Timestamp(uint64(*log.TimeNs)*uint64(time.Nanosecond))
 		if newKey, ok := c.ProtocolKeyRenameMap[protocolKeyTime]; ok {
 			customSingleLog[newKey] = log.Time
 		} else {
