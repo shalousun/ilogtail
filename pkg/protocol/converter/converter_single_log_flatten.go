@@ -16,10 +16,8 @@ package protocol
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/bytedance/sonic"
-	"go.opentelemetry.io/collector/pdata/pcommon"
 
 	"github.com/alibaba/ilogtail/pkg/protocol"
 )
@@ -57,7 +55,7 @@ func (c *Converter) ConvertToSingleProtocolLogsFlatten(logGroup *protocol.LogGro
 		} else {
 			customSingleLog[protocolKeyTime] = log.Time
 		}
-		customSingleLog[protocolKeyTimestamp] = pcommon.Timestamp(uint64(log.Time)*uint64(time.Second)) + pcommon.Timestamp(uint64(*log.TimeNs)*uint64(time.Nanosecond))
+		//customSingleLog[protocolKeyTimestamp] = pcommon.Timestamp(uint64(log.Time)*uint64(time.Second)) + pcommon.Timestamp(uint64(*log.TimeNs)*uint64(time.Nanosecond))
 
 		convertedLogs[i] = customSingleLog
 	}
