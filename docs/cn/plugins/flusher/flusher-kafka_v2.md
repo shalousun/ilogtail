@@ -15,7 +15,7 @@
 | Type                                  | String   | 是    | 插件类型                                                                                                       |
 | Brokers                               | String数组 | 是    | Kafka Brokers                                                                                              |
 | Topic                                 | String   | 是    | Kafka Topic,支持动态topic, 例如: `test_%{content.appname}`                                                       |
-| Version                               | String   | 否    | Kafka协议版本号 ,例如：`2.0.0`，默认值：`1.0.0`                                                                         |
+| Version                               | String   | 否    | Kafka协议版本号 ,例如：`2.0.0`，iLogtail 2.0.7以前默认值：`1.0.0`，Kafka未来4.0版本将移除低于2.1.0协议支持，因此iLogtail 2.0.7以后默认值2.1.0，  |
 | Headers                               | header数组 | 否    | kafka消息头 ，配置使用请参考本文中`Headers`配置用例                                                                          |
 | Convert                               | Struct   | 否    | iLogtail数据转换协议配置                                                                                           |
 | Convert.Protocol                      | String   | 否    | iLogtail数据转换协议，kafka flusher 可选值：`custom_single`,`custom_single_flatten`,`otlp_log_v1`。默认值：`custom_single` |
@@ -46,7 +46,7 @@
 | RequiredAcks                          | int      | 否    | ACK的可靠等级.0=无响应,1=等待本地消息,-1=等待所有副本提交.默认1，                                                                   |
 | Compression                           | String   | 否    | 压缩算法，可选值：`none`, `snappy`，`lz4`和`gzip`，默认值`none`                                                           |
 | CompressionLevel                      | Int      | 否    | 压缩级别，可选值：`1~9`，默认值：`4`,设置为`0`则禁用`Compression`                                                              |
-| MaxMessageBytes                       | Int      | 否    | 一个批次提交的大小限制，配置和`message.max.bytes`对应，默认值：`1000000`                                                         |
+| MaxMessageBytes                       | Int      | 否    | 一个批次提交的大小限制，配置和`message.max.bytes`对应，默认值：`1048576`                                                         |
 | MaxOpenRequests                       | Int      | 否    | 一个连接允许的最大打开的请求数，默认值:`5`                                                                                    |
 | MaxRetries                            | Int      | 否    | 提交失败重试次数，最大`3`次，默认值：`3`                                                                                    |
 | BulkMaxSize                           | Int      | 否    | 单次请求提交事件数，默认`2048`                                                                                         |
