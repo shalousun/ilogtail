@@ -49,7 +49,7 @@ require (
 	github.com/sirupsen/logrus v1.8.1
 	github.com/smartystreets/goconvey v1.7.2
 	github.com/streadway/handy v0.0.0-20230327021402-6a47ec586270
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.8.4
 	github.com/syndtr/goleveldb v0.0.0-20170725064836-b89cc31ef797
 	github.com/xdg-go/scram v1.1.2
 	go.opentelemetry.io/collector/consumer v0.66.0
@@ -57,7 +57,7 @@ require (
 	go.opentelemetry.io/proto/otlp v0.19.0
 	go.uber.org/atomic v1.11.0
 	go.uber.org/multierr v1.11.0
-	golang.org/x/sys v0.19.0
+	golang.org/x/sys v0.17.0
 	google.golang.org/grpc v1.53.0
 	google.golang.org/protobuf v1.31.0
 	gopkg.in/yaml.v2 v2.4.0
@@ -114,7 +114,7 @@ require (
 	github.com/docker/go-events v0.0.0-20190806004212-e31b211e4f1c // indirect
 	github.com/docker/go-metrics v0.0.1 // indirect
 	github.com/docker/go-units v0.5.0 // indirect
-	github.com/dvsekhvalnov/jose2go v1.6.0 // indirect
+	github.com/dvsekhvalnov/jose2go v1.5.0 // indirect
 	github.com/eapache/go-resiliency v1.6.0 // indirect
 	github.com/eapache/go-xerial-snappy v0.0.0-20230731223053-c322873962e3 // indirect
 	github.com/eapache/queue v1.1.0 // indirect
@@ -177,7 +177,7 @@ require (
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/jpillora/backoff v1.0.0 // indirect
 	github.com/jtolds/gls v4.20.0+incompatible // indirect
-	github.com/klauspost/compress v1.17.8 // indirect
+	github.com/klauspost/compress v1.17.7 // indirect
 	github.com/linkedin/goavro/v2 v2.9.8 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
 	github.com/miekg/pkcs11 v1.1.1 // indirect
@@ -243,13 +243,13 @@ require (
 	go.opentelemetry.io/otel/trace v1.11.2 // indirect
 	go.uber.org/goleak v1.2.1 // indirect
 	go.uber.org/zap v1.26.0 // indirect
-	golang.org/x/crypto v0.22.0 // indirect
+	golang.org/x/crypto v0.19.0 // indirect
 	golang.org/x/exp v0.0.0-20231006140011-7918f672742d // indirect
 	golang.org/x/mod v0.13.0 // indirect
-	golang.org/x/net v0.24.0 // indirect
+	golang.org/x/net v0.21.0 // indirect
 	golang.org/x/oauth2 v0.5.0 // indirect
-	golang.org/x/sync v0.7.0 // indirect
-	golang.org/x/term v0.19.0 // indirect
+	golang.org/x/sync v0.6.0 // indirect
+	golang.org/x/term v0.17.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
